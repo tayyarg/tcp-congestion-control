@@ -1,0 +1,29 @@
+To test the kernel module:
+
+Make sure the version of your linux kernel is 4.13.0-36 and install linux headers to your host Linux. 
+
+Go to the src directory and run "make" to compile the kernel module. It should generate "tcp_t_probe.ko" file.
+
+In the same directory;
+
+Install the kernel module
+$ sudo su
+$ insmod tcp_t_probe port=5001
+$ exit
+$ sudo chmod 444 /proc/net/tcpprobe
+
+Start the IPERF server
+$ iperf -s &
+
+Record the output of tcptprobe kernel module
+$ cat /proc/net/tcptprobe > /tmp/tcpprobe.out &
+$ TCPCAP=$!  
+
+Add some loss to eth interface
+$ sudo sc add dev enp0s3 root netem loss 10%
+
+Generate some TCP traffic
+$ iperf -i 10 -t 1000 -c 10.0.2.15
+
+keep watching what's being written into /tmp/tcpprobe.out
+$tail -f /tmp/tcpprobe.out
