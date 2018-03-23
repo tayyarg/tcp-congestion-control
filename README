@@ -22,8 +22,9 @@ $ TCPCAP=$!
 Add some loss to eth interface
 $sudo tc qdisc add dev enp0s3 root netem loss 10%
 
+keep watching what's being written into /tmp/tcpprobe.out
+$tail -f /tmp/tcpprobe.out
+
 Generate some TCP traffic
 $ iperf -i 10 -t 1000 -c 10.0.2.15
 
-keep watching what's being written into /tmp/tcpprobe.out
-$tail -f /tmp/tcpprobe.out
