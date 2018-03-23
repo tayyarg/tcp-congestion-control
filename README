@@ -8,7 +8,7 @@ In the same directory;
 
 Install the kernel module
 $ sudo su
-$ insmod tcp_t_probe port=5001
+$ insmod tcp_t_probe.ko port=5001
 $ exit
 $ sudo chmod 444 /proc/net/tcpprobe
 
@@ -20,7 +20,7 @@ $ cat /proc/net/tcptprobe > /tmp/tcpprobe.out &
 $ TCPCAP=$!  
 
 Add some loss to eth interface
-$ sudo sc add dev enp0s3 root netem loss 10%
+$sudo tc qdisc add dev enp0s3 root netem loss 10%
 
 Generate some TCP traffic
 $ iperf -i 10 -t 1000 -c 10.0.2.15
