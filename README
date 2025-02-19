@@ -1,4 +1,4 @@
-I've updated the 'tcp_t_probe' Linux kernel module to probe TCP packets and print things like contention window size, slow start threshold, etc. at the transmitting side. I did that because I was researching whether I could predict the contention control states on the receiving side using e.g. Hidden Markov Model (HMM). To check the accuracy of my predictions, I needed the actual contention window size, slow start threshold, etc.
+I've updated the 'tcp_t_probe' Linux kernel module to probe TCP packets and print things like contention window size, slow start threshold, etc. at the transmitting side. I did that because I was researching whether I could predict the contention control states on the receiving side using machine learning e.g. Hidden Markov Model (HMM). To check the accuracy of my predictions, I needed the actual contention window size, slow start threshold, etc.
 
 To use the kernel module, you better make sure your Linux kernel version is 4.13.0-36 and install Linux headers on your host Linux. 
 
