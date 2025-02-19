@@ -1,6 +1,8 @@
-To test the kernel module:
+I've updated the Linux kernel module to probe TCP packets and print things like contention window size, slow start threshold, etc. at the transmitting side. 
+I did that because I was researching whether I could predict the contention control states on the receiving side using e.g. Hidden Markov Model (HMM). 
+To check the accuracy of my predictions, I needed the actual contention window size, slow start threshold, etc.
 
-Make sure the version of your linux kernel is 4.13.0-36 and install linux headers to your host Linux. 
+To use the kernel module, you better make sure your Linux kernel version is 4.13.0-36 and install Linux headers on your host Linux. 
 
 Go to the src directory and run "make" to compile the kernel module. It should generate "tcp_t_probe.ko" file.
 
@@ -19,10 +21,10 @@ Record the output of tcptprobe kernel module
 $ cat /proc/net/tcptprobe > /tmp/tcpprobe.out &
 $ TCPCAP=$!  
 
-Add some loss to eth interface
+Add some random loss to the ethernet interface
 $sudo tc qdisc add dev enp0s3 root netem loss 10%
 
-keep watching what's being written into /tmp/tcpprobe.out
+Keep watching what's being written into /tmp/tcpprobe.out
 $tail -f /tmp/tcpprobe.out
 
 Generate some TCP traffic
